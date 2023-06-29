@@ -1,3 +1,5 @@
 vendor/
 qa/results
+qa/scripts/sa/9*
 /composer.lock
+.scannerwork/
