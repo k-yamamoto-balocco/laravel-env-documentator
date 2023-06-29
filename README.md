@@ -1,0 +1,2 @@
+# laravel-env-documentator
+Laravelの環境変数に関する開発者向けドキュメントを生成する機能を提供するパッケージ
