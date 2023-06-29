@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!-- https://psalm.dev/docs/running_psalm/configuration/ -->
+<psalm
+        errorLevel="3"
+        resolveFromConfigFile="true"
+        strictBinaryOperands="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        cacheDirectory="/tmp/psalm"
+>
+    <projectFiles>
+        <!-- 相対パスで書く場合、このファイルの設置ディレクトリからの相対パスで記述しなければならない -->
+        <directory name="../../../src" />
+        
+        <ignoreFiles>
+            <directory name="../../../vendor" />
+            
+        </ignoreFiles>
+    </projectFiles>
+</psalm>

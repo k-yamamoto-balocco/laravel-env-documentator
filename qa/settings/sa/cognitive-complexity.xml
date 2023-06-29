@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!-- 認知的複雑度が基準値を超えていないことの検査 -->
+<ruleset name="BALOCCO_CognitiveComplexity">
+    <!-- 検査対象ディレクトリ。相対パスで記述する場合、この設定ファイルの位置を基準としたパスを設定すること -->
+    <file>../../../src</file>
+    
+    <rule ref="CognitiveComplexity.Complexity.MaximumComplexity">
+        <properties>
+            <!-- 認知的複雑度のしきい値設定 -->
+            <property name="maxCognitiveComplexity" value="9"/>
+        </properties>
+    </rule>
+</ruleset>

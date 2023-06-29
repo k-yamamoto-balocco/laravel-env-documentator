@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<ruleset name="BALOCCO_PHPMD"
+         xmlns="http://pmd.sf.net/ruleset/1.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://pmd.sf.net/ruleset/1.0.0
+                     http://pmd.sf.net/ruleset_xml_schema.xsd"
+         xsi:noNamespaceSchemaLocation="
+                     http://pmd.sf.net/ruleset_xml_schema.xsd">
+    <description>
+        PHPMD ruleset of Balocco project.
+    </description>
+
+    <!-- 1. Clean code rules https://phpmd.org/rules/cleancode.html -->
+    <rule ref="rulesets/cleancode.xml">
+        <!-- else 節の使用を許可 -->
+        <exclude name="ElseExpression"/>
+        <!-- 後述のセクションで指定するクラスに対してStaticAccessを許可する -->
+        <exclude name="StaticAccess"/>
+    </rule>
+
+    <!-- StaticAccess -->
+    <rule ref="rulesets/cleancode.xml/StaticAccess">
+        <properties>
+            <!-- StaticAccessを許可するクラスをカンマ区切りで指定する -->
+            <property name="exceptions" value="">
+                <value>
+                    
+                </value>
+            </property>
+        </properties>
+    </rule>
+
+
+    <!-- 2. Code size rules https://phpmd.org/rules/codesize.html は後述する一部のみ適用 -->
+    <!-- 循環的複雑度:11以上は場合NG  -->>
+    <rule ref="rulesets/codesize.xml/CyclomaticComplexity">
+        <properties>
+            <property name="reportLevel" value="10"/>
+        </properties>
+    </rule>
+    <!-- 1クラス300行以内（コメント、空行含む）  -->>
+    <rule ref="rulesets/codesize.xml/ExcessiveClassLength">
+        <properties>
+            <property name="minimum" value="300"/>
+        </properties>
+    </rule>
+
+    <!-- 1メソッド60行以内（コメント、空行含む）-->>
+    <rule ref="rulesets/codesize.xml/ExcessiveMethodLength">
+        <properties>
+            <property name="minimum" value="60"/>
+        </properties>
+    </rule>
+
+    <!-- 3. Controversial Rules https://phpmd.org/rules/controversial.html 一部適用 -->
+    <!-- super globals へ直接アクセスすることを禁止 -->
+    <rule ref="rulesets/controversial.xml/Superglobals"/>
+    <!-- キャメルケース/クラス名 -->
+    <rule ref="rulesets/controversial.xml/CamelCaseClassName"/>
+    <!-- キャメルケース/プロパティ -->
+    <rule ref="rulesets/controversial.xml/CamelCasePropertyName"/>
+    <!-- キャメルケース/メソッド名 -->
+    <rule ref="rulesets/controversial.xml/CamelCaseMethodName"/>
+    <!-- キャメルケース/パラメータ名 -->
+    <rule ref="rulesets/controversial.xml/CamelCaseParameterName"/>
+    <!-- キャメルケース/変数名 -->
+    <rule ref="rulesets/controversial.xml/CamelCaseVariableName"/>
+
+    <!-- 4. Design Rules https://phpmd.org/rules/design.html すべて適用 -->
+    <rule ref="rulesets/design.xml"/>
+
+    <!-- 5. Naming rules https://phpmd.org/rules/naming.html 一部適用 -->
+    <!-- 短いクラス名の禁止（最小3文字） -->
+    <rule ref="rulesets/naming.xml/ShortClassName"/>
+    <!-- 短いメソッド名の禁止（最小3文字） -->
+    <rule ref="rulesets/naming.xml/ShortMethodName"/>
+    <!-- クラス名コンストラクタの禁止 -->
+    <rule ref="rulesets/naming.xml/ConstructorWithNameAsEnclosingClass"/>
+    <!-- クラス内定数に小文字を使わない -->
+    <rule ref="rulesets/naming.xml/ConstantNamingConventions"/>
+    <!-- booleanを返すメソッドはisFoo()かhasFoo() -->
+    <rule ref="rulesets/naming.xml/BooleanGetMethodName"/>
+
+
+    <!-- 6. Unused Code Rules https://phpmd.org/rules/unusedcode.html すべて適用 -->
+    <rule ref="rulesets/unusedcode.xml"/>
+
+
+</ruleset>

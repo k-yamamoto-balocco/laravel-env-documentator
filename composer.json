@@ -8,7 +8,8 @@
   ],
   "require": {
     "php": ">=8.1",
-    "laravel/framework": ">=9.32.0"
+    "laravel/framework": ">=9.32.0",
+    "k-yamamoto-balocco/laravel-ui-cli": "0.2.0"
   },
   "autoload": {
     "psr-4": {
@@ -29,7 +30,8 @@
     "squizlabs/php_codesniffer": "*",
     "php-parallel-lint/php-parallel-lint": "*",
     "orchestra/testbench": "*",
-    "phpmetrics/phpmetrics": "*"
+    "phpmetrics/phpmetrics": "*",
+    "git-balocco/php-qa-utils": "0.5.2"
   },
   "extra": {
     "laravel": {
@@ -43,5 +45,27 @@
       "dealerdirect/phpcodesniffer-composer-installer": true,
       "infection/extension-installer": true
     }
-  }
+  },
+  "repositories": [
+    {
+      "type": "vcs",
+      "url": "https://github.com/k-yamamoto-balocco/laravel-ui-cli.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/git-balocco/php-qa-utils.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/git-balocco/phpcs-wp-theme-sniff.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/git-balocco/phpcs-sniffs.git"
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/k-yamamoto-balocco/common-structures.git"
+    }
+  ]
 }

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<ruleset name="BALOCCO_PSR12">
+    <!-- 対象ディレクトリ/Target directories -->
+    <file>../../../src</file>
+    
+
+    <!-- コーディング標準/Coding standard（PSR-12） -->
+    <rule ref="PSR12"></rule>
+
+    <!-- 実行時パラメータ/Runtime parameters -->
+    <arg name="extensions" value="php"/>
+    <arg name="tab-width" value="4"/>
+    <arg value="sp"/>
+</ruleset>
