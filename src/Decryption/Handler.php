@@ -24,6 +24,7 @@
 namespace GitBalocco\LaravelEnvDocumentator\Decryption;
 
 use GitBalocco\LaravelEnvDocumentator\Config;
+use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use Illuminate\Encryption\Encrypter as LaravelEncrypter;
 
 class Handler
@@ -32,7 +33,7 @@ class Handler
     {
     }
 
-    public function __invoke()
+    public function __invoke(): TableOfEnvItemsAndDestinations
     {
         $result = [];
         foreach ($this->config as $destination) {
@@ -41,7 +42,7 @@ class Handler
                 file_get_contents($destination->getEncryptedFilePath())
             );
         }
-        return $result;
+        return new TableOfEnvItemsAndDestinations($result);
     }
 
     private function createEncrypter(Config\Destination $destination): LaravelEncrypter
