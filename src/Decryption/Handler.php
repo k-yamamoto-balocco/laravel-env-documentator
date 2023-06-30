@@ -34,10 +34,14 @@ class Handler
 
     public function __invoke()
     {
+        $result = [];
         foreach ($this->config as $destination) {
             $decrypter = new Decrypter($this->createEncrypter($destination));
-            return $decrypter->__invoke(file_get_contents($destination->getEncryptedFilePath()));
+            $result[$destination->getName()] = $decrypter->__invoke(
+                file_get_contents($destination->getEncryptedFilePath())
+            );
         }
+        return $result;
     }
 
     private function createEncrypter(Config\Destination $destination): LaravelEncrypter

@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Decryption;
 
+use Dotenv\Dotenv;
 use Illuminate\Encryption\Encrypter;
 
 class Decrypter
@@ -12,10 +13,10 @@ class Decrypter
     {
     }
 
-    public function __invoke(string $encryptedString)
+    public function __invoke(string $encryptedString): ?array
     {
-        $decryptedString=$this->encrypter->decryptString($encryptedString);
-
-        return unserialize($decryptedString);
+        $decryptedString = $this->encrypter->decryptString($encryptedString);
+        $string = unserialize($decryptedString);
+        return Dotenv::parse($string);
     }
 }

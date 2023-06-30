@@ -29,7 +29,7 @@ class HandlerTest extends TestCase
         $config = require $testStubs;
         $config = new Config(new Path(), $config);
         $handler = new Handler($config);
-        $result = $handler->__invoke();
-        $this->assertSame('APP_URL=test', trim($result));
+        $actual = $handler->__invoke();
+        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual);
     }
 }
