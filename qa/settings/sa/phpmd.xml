@@ -25,6 +25,8 @@
             <property name="exceptions" value="">
                 <value>
                     \Illuminate\Support\Facades\Config,
+                    \Illuminate\Support\Str,
+                    \Dotenv\Dotenv
                 </value>
             </property>
         </properties>

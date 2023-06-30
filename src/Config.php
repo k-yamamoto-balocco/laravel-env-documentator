@@ -95,7 +95,8 @@ class Config implements IteratorAggregate
      */
     private function parseKey($key): string
     {
-        if (Str::startsWith($key, $prefix = 'base64:')) {
+        $prefix = 'base64:';
+        if (Str::startsWith($key, $prefix)) {
             $key = base64_decode(Str::after($key, $prefix));
         }
         return $key;
