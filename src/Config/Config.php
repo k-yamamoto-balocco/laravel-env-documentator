@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace GitBalocco\LaravelEnvDocumentator;
+namespace GitBalocco\LaravelEnvDocumentator\Config;
 
 use Generator;
-use GitBalocco\LaravelEnvDocumentator\Config\Destination;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\ConfigurationNotFoundException;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidConfigurationException;
+use GitBalocco\LaravelEnvDocumentator\Path;
 use Illuminate\Support\Str;
 use IteratorAggregate;
 use Traversable;

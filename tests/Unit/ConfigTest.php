@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Test\Unit;
 
-use GitBalocco\LaravelEnvDocumentator\Config;
+use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\ConfigurationNotFoundException;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidConfigurationException;
 use GitBalocco\LaravelEnvDocumentator\Path;
 use PHPUnit\Framework\TestCase;
 
 /**
- * @coversDefaultClass \GitBalocco\LaravelEnvDocumentator\Config
+ * @coversDefaultClass \GitBalocco\LaravelEnvDocumentator\Config\Config
  */
 class ConfigTest extends TestCase
 {
@@ -40,7 +40,7 @@ class ConfigTest extends TestCase
     /**
      * @covers ::getDestinations
      * @uses \GitBalocco\LaravelEnvDocumentator\Path
-     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_getDestinations_defaultValue()
@@ -53,7 +53,7 @@ class ConfigTest extends TestCase
     /**
      * @covers ::getDestinations
      * @uses \GitBalocco\LaravelEnvDocumentator\Path
-     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_Destinations_appConfigOverwritesDefaultValue()
@@ -66,7 +66,7 @@ class ConfigTest extends TestCase
     /**
      * @covers ::getDestinations
      * @uses \GitBalocco\LaravelEnvDocumentator\Path
-     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_Destinations_ShouldHaveValue()
@@ -80,7 +80,7 @@ class ConfigTest extends TestCase
     /**
      * @covers ::getDestinations
      * @uses \GitBalocco\LaravelEnvDocumentator\Path
-     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_Destinations_ShouldBeArray()
@@ -94,7 +94,7 @@ class ConfigTest extends TestCase
     /**
      * @covers ::getPaths
      * @uses \GitBalocco\LaravelEnvDocumentator\Path
-     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_getPaths_defaultValue()

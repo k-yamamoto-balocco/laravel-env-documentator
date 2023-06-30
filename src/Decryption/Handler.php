@@ -23,7 +23,8 @@
 
 namespace GitBalocco\LaravelEnvDocumentator\Decryption;
 
-use GitBalocco\LaravelEnvDocumentator\Config;
+use GitBalocco\LaravelEnvDocumentator\Config\Config;
+use GitBalocco\LaravelEnvDocumentator\Config\Destination;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use Illuminate\Encryption\Encrypter as LaravelEncrypter;
 
@@ -45,7 +46,7 @@ class Handler
         return new TableOfEnvItemsAndDestinations($result);
     }
 
-    private function createEncrypter(Config\Destination $destination): LaravelEncrypter
+    private function createEncrypter(Destination $destination): LaravelEncrypter
     {
         if (is_null($destination->getCypher())) {
             return new LaravelEncrypter($destination->getEncryptionKey());

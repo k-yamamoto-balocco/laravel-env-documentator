@@ -4,14 +4,14 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Test\Feature;
 
-use GitBalocco\LaravelEnvDocumentator\Config;
+use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Path;
 
 /**
  * @uses GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations
- * @uses GitBalocco\LaravelEnvDocumentator\Config
+ * @uses GitBalocco\LaravelEnvDocumentator\Config\Config
  * @uses GitBalocco\LaravelEnvDocumentator\Config\Destination
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Decrypter
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Handler
