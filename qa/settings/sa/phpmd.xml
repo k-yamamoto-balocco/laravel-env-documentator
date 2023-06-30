@@ -24,7 +24,7 @@
             <!-- StaticAccessを許可するクラスをカンマ区切りで指定する -->
             <property name="exceptions" value="">
                 <value>
-                    
+                    \Illuminate\Support\Facades\Config,
                 </value>
             </property>
         </properties>

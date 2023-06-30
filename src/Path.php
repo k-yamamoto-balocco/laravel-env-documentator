@@ -1,6 +1,5 @@
 <?php
 
-
 namespace GitBalocco\LaravelEnvDocumentator;
 
 class Path
@@ -15,5 +14,10 @@ class Path
     public function getPackageRoot(): string
     {
         return $this->packageRoot;
+    }
+
+    public function getDefaultConfig(): string
+    {
+        return $this->packageRoot . '/resources/env-documentator.php';
     }
 }
