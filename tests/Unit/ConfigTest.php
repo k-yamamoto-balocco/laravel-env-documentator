@@ -90,4 +90,22 @@ class ConfigTest extends TestCase
         $this->expectException(InvalidConfigurationException::class);
         $config->getDestinations();
     }
+
+    /**
+     * @covers ::getPaths
+     * @uses \GitBalocco\LaravelEnvDocumentator\Path
+     * @uses \GitBalocco\LaravelEnvDocumentator\Config::__construct
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
+     */
+    public function test_getPaths_defaultValue()
+    {
+        $path = new Path();
+        $config = new Config($path, []);
+        $this->assertSame([
+            'production' => '.env.production.encrypted',
+            'staging' => '.env.staging.encrypted',
+            'develop' => '.env.develop.encrypted',
+            'testing' => '.env.testing.encrypted'
+        ], $config->getPaths());
+    }
 }
