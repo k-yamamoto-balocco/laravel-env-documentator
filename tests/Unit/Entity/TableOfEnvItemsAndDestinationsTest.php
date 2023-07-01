@@ -9,6 +9,7 @@ use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations
+ * @uses GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations
  */
 class TableOfEnvItemsAndDestinationsTest extends TestCase
 {
@@ -24,9 +25,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
     }
 
     /**
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::__construct
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::initItemNames
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::table
      * @covers ::getIterator
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
@@ -43,8 +41,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
     }
 
     /**
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::__construct
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::initItemNames
      * @covers ::getDestinations
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
@@ -60,8 +56,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
     }
 
     /**
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::__construct
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::initItemNames
      * @covers ::getEnvItemNames
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
@@ -78,10 +72,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
 
     /**
      * @covers ::table
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::__construct
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::initItemNames
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::getEnvItemNames
-     * @uses \GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations::getDestinations
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function test_table()
@@ -112,6 +102,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
                 'key04' => 302
             ],
 
-        ], $object->table());
+        ], $object->table()->toArray());
     }
 }

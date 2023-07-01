@@ -36,7 +36,7 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->table());
+        return new ArrayIterator($this->table()->toArray());
     }
 
     /**

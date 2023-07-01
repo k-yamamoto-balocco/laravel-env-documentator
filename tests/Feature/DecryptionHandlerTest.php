@@ -33,8 +33,6 @@ class DecryptionHandlerTest extends FeatureTestCase
         $handler = new Handler($config);
         $actual = $handler->__invoke();
         $this->assertInstanceOf(TableOfEnvItemsAndDestinations::class, $actual);
-
-        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->table());
-
+        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->table()->toArray());
     }
 }
