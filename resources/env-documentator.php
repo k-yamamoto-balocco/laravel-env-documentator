@@ -22,5 +22,17 @@ return [
     ],
     'ciphers' => [
         'staging' => 'AES-256-CBC',
+    ],
+
+    //以下の項目は結果に表示しない。置換したい文字列を指定することも可能。デフォルトは ********
+    'filters' => [
+        'secrets' => [
+            'APP_KEY' => '********',
+            'DB_PASSWORD',
+            'REDIS_PASSWORD',
+            'MAIL_PASSWORD',
+            'AWS_SECRET_ACCESS_KEY',
+            'PUSHER_APP_SECRET',
+        ]
     ]
 ];

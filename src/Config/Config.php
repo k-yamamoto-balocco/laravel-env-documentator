@@ -85,6 +85,11 @@ class Config implements IteratorAggregate
         }
     }
 
+    public function getSecrets(): array
+    {
+        return $this->config['filters']['secrets'] ?? [];
+    }
+
     /**
      * parseKey
      * @param $key

@@ -10,6 +10,8 @@ use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Path;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ArtisanConsoleDefaultPresenter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\PresenterInterface;
+use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler as ValueFilterHandler;
+use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config as ConfigFacade;
 
@@ -34,13 +36,15 @@ class EnvDocumentatorCommand extends Command
         $handler = new Handler($config);
         $result = $handler->__invoke();
 
-        $this->decidePresenter($result)->__invoke();
+        $this->decidePresenter($config, $result)->__invoke();
 
         return Command::SUCCESS;
     }
 
-    private function decidePresenter(TableOfEnvItemsAndDestinations $table): PresenterInterface
+    private function decidePresenter(Config $config, TableOfEnvItemsAndDestinations $table): PresenterInterface
     {
-        return new ArtisanConsoleDefaultPresenter($table, $this->getOutput());
+        $valueFilterHandler = new ValueFilterHandler();
+        $valueFilterHandler->register(new SecretFilter($config));
+        return new ArtisanConsoleDefaultPresenter($table, $valueFilterHandler, $this->getOutput());
     }
 }
