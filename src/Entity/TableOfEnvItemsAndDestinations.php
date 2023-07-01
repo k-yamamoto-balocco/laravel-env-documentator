@@ -16,6 +16,7 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
     private array $envItemNames;
     /** @var string[] */
     private array $destinations;
+    private Collection $table;
 
     public function __construct(array $decrypted)
     {
@@ -24,6 +25,7 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
         $this->collection = $collection;
         $this->destinations = $collection->keys()->toArray();
         $this->envItemNames = $this->initItemNames($this->collection);
+        $this->table = $this->initTable($this->destinations, $this->envItemNames);
     }
 
     /**
@@ -40,18 +42,29 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
     /**
      * table
      *
-     * @return array[]
+     * @return Collection
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
-    public function table(): array
+    public function table(): Collection
     {
+        //全体の結果を初期化
         $result = [];
         foreach ($this->destinations as $destination) {
+            //各デプロイ環境ごとの内容初期化
+            $result[$destination] = [];
             foreach ($this->envItemNames as $itemName) {
                 $result[$destination][$itemName] = $this->collection->get($destination)[$itemName] ?? null;
             }
         }
-        return $result;
+        return new Collection($result);
+    }
+
+    public function hoge()
+    {
+        $collection = new Collection ($this->table());
+        foreach ($this->envItemNames as $itemName) {
+            yield $itemName => $collection->pluck($itemName);
+        }
     }
 
     /**
@@ -78,4 +91,28 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
         }
         return array_keys($tmpMergedArray);
     }
+
+    private function initTable($destinations, $envItemNames): Collection
+    {
+        //全体の結果を初期化
+        $result = [];
+        foreach ($destinations as $destination) {
+            //各デプロイ環境ごとの内容初期化
+            $result[$destination] = [];
+            foreach ($envItemNames as $itemName) {
+                $result[$destination][$itemName] = $this->collection->get($destination)[$itemName] ?? null;
+            }
+        }
+        return new Collection($result);
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getTable(): Collection
+    {
+        return $this->table;
+    }
+
+
 }

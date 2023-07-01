@@ -30,6 +30,8 @@ use Illuminate\Encryption\Encrypter as LaravelEncrypter;
 
 class Handler
 {
+    private array $loadDetails = [];
+
     public function __construct(private Config $config)
     {
     }
@@ -38,10 +40,10 @@ class Handler
     {
         $result = [];
         foreach ($this->config as $destination) {
+            //各環境の情報を複合
             $decrypter = new Decrypter($this->createEncrypter($destination));
-            $result[$destination->getName()] = $decrypter->__invoke(
-                file_get_contents($destination->getEncryptedFilePath())
-            );
+            $envFileContent = $this->readFile($destination->getEncryptedFilePath());
+            $result[$destination->getName()] = $decrypter->__invoke($envFileContent);
         }
         return new TableOfEnvItemsAndDestinations($result);
     }
@@ -52,5 +54,13 @@ class Handler
             return new LaravelEncrypter($destination->getEncryptionKey());
         }
         return new LaravelEncrypter($destination->getEncryptionKey(), $destination->getCypher());
+    }
+
+    private function readFile(string $path): ?string
+    {
+        if (!is_file($path)) {
+            return null;
+        }
+        return file_get_contents($path);
     }
 }

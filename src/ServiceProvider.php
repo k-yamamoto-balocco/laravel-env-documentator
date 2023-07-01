@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator;
 
+use GitBalocco\LaravelEnvDocumentator\Command\EnvDocumentatorCommand;
 use Illuminate\Support\ServiceProvider as BaseProvider;
 
 class ServiceProvider extends BaseProvider
@@ -20,12 +21,12 @@ class ServiceProvider extends BaseProvider
     private function commandsToRegister(): array
     {
         return [
+            EnvDocumentatorCommand::class
         ];
     }
 
     private function itemsToPublish(): array
     {
-
         return [
 
         ];
