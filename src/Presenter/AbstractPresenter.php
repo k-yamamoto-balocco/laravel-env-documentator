@@ -8,7 +8,6 @@ use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 
 abstract class AbstractPresenter implements PresenterInterface
 {
-
     public function __construct(private TableOfEnvItemsAndDestinations $tableOfEnvItemsAndDestinations)
     {
     }
@@ -20,5 +19,4 @@ abstract class AbstractPresenter implements PresenterInterface
     {
         return $this->tableOfEnvItemsAndDestinations;
     }
-
 }

@@ -48,8 +48,6 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
             foreach ($values as $key => $value) {
                 $values[$key] = $this->valueFilterHandler->__invoke($itemName, $value);
             }
-
-
             $row = array_merge(
                 [$itemName],
                 $values

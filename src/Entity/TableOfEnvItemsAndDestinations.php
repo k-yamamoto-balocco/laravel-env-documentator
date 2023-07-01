@@ -61,7 +61,7 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
 
     public function hoge()
     {
-        $collection = new Collection ($this->table());
+        $collection = new Collection($this->table());
         foreach ($this->envItemNames as $itemName) {
             yield $itemName => $collection->pluck($itemName);
         }
@@ -113,6 +113,4 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
     {
         return $this->table;
     }
-
-
 }
