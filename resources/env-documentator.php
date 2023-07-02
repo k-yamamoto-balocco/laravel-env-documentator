@@ -36,8 +36,8 @@ return [
         ]
     ],
 
-    //追加表示項目
-    'additional' => [
+    //メタ情報（自由に追加可能）
+    'metadata' => [
         //このレベルに追加すると、表示時の列が1つ増える
         'description' => [
             'LOG_CHANNEL' => ''

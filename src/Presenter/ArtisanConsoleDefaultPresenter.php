@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Presenter;
 
-use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\AdditionalOption;
+use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\MetadataOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\ValueFilterHandlerInterface;
@@ -18,7 +18,7 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
         private Config $config,
         private ValueFilterHandlerInterface $valueFilterHandler,
         private OutputStyle $output,
-        private AdditionalOption $additionalOption
+        private MetadataOption $metadataOption
     ) {
         parent::__construct($tableOfEnvItemsAndDestinations);
     }
@@ -43,7 +43,7 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
     {
         return array_merge(
             ['name'],
-            $this->additionalOption->visibleAdditionalColumns(),
+            $this->metadataOption->visibleMetadataColumns(),
             $this->getTableOfEnvItemsAndDestinations()->getDestinations()
         );
     }
@@ -59,10 +59,10 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
         $rows = [];
 
         foreach ($this->getTableOfEnvItemsAndDestinations()->getEnvItemNames() as $itemName) {
-            $additional = [];
-            foreach ($this->additionalOption->visibleAdditionalColumns() as $columnName) {
-                $additionalValue = $this->config->getAdditionalValue($columnName, $itemName);
-                $additional[] = $additionalValue;
+            $metadata = [];
+            foreach ($this->metadataOption->visibleMetadataColumns() as $columnName) {
+                $metadataValue = $this->config->getMetadataValue($columnName, $itemName);
+                $metadata[] = $metadataValue;
             }
 
             $values = $this->getTableOfEnvItemsAndDestinations()->table()->pluck($itemName)->toArray();
@@ -71,7 +71,7 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
             }
             $row = array_merge(
                 [$itemName],
-                $additional,
+                $metadata,
                 $values
             );
             $rows[] = $row;

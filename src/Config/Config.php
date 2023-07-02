@@ -91,23 +91,23 @@ class Config implements IteratorAggregate
         return $this->config['filters']['secrets'] ?? [];
     }
 
-    public function getAdditionalColumns(): array
+    public function getMetadataColumns(): array
     {
-        return $this->getAdditional()->keys()->toArray();
+        return $this->getMetadata()->keys()->toArray();
     }
 
-    public function getAdditionalValue(string $columnName, string $itemName): ?string
+    public function getMetadataValue(string $columnName, string $itemName): ?string
     {
-        $additional = $this->getAdditional();
-        $value = data_get($additional, implode('.', [$columnName, $itemName]));
+        $metadata = $this->getMetadata();
+        $value = data_get($metadata, implode('.', [$columnName, $itemName]));
         //値チェック
 
         return (string)$value;
     }
 
-    private function getAdditional(): Collection
+    private function getMetadata(): Collection
     {
-        return new Collection($this->config['additional'] ?? []);
+        return new Collection($this->config['metadata'] ?? []);
     }
 
     /**

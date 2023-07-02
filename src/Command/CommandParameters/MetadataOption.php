@@ -10,21 +10,21 @@ namespace GitBalocco\LaravelEnvDocumentator\Command\CommandParameters;
  * 'all'：設定ファイルに記載されているすべての項目を表示
  * all以外の文字列：引数で指定した項目を表示。,区切りで複数指定可能。複数指定する場合、オプションに渡した順に左から表示。
  */
-class AdditionalOption
+class MetadataOption
 {
 
-    public function __construct(private ?string $input, private array $configAdditionalColumns)
+    public function __construct(private ?string $input, private array $configMetadataColumns)
     {
     }
 
-    public function visibleAdditionalColumns(): array
+    public function visibleMetadataColumns(): array
     {
         if (is_null($this->input)) {
             return [];
         }
         if ($this->input === 'all') {
-            return $this->configAdditionalColumns;
+            return $this->configMetadataColumns;
         }
-        return array_intersect(explode(',', $this->input), $this->configAdditionalColumns);
+        return array_intersect(explode(',', $this->input), $this->configMetadataColumns);
     }
 }

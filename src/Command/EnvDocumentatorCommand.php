@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Command;
 
-use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\AdditionalOption;
+use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\MetadataOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
@@ -19,7 +19,7 @@ use Illuminate\Support\Facades\Config as ConfigFacade;
 
 class EnvDocumentatorCommand extends Command
 {
-    protected $signature = 'env:documentator {--a|additional=}';
+    protected $signature = 'env:documentator {--m|metadata=}';
     protected $description = '';
 
     /**
@@ -45,11 +45,17 @@ class EnvDocumentatorCommand extends Command
 
     private function decidePresenter(Config $config, TableOfEnvItemsAndDestinations $table): PresenterInterface
     {
-        $additionalOption = new AdditionalOption($this->option('additional'), $config->getAdditionalColumns());
+        $metadataOption = new MetadataOption($this->option('metadata'), $config->getMetadataColumns());
 
         $valueFilterHandler = new ValueFilterHandler();
         $valueFilterHandler->register(new SecretFilter($config));
         $valueFilterHandler->register(new NullFilter());
-        return new ArtisanConsoleDefaultPresenter($table, $config, $valueFilterHandler, $this->getOutput(),$additionalOption);
+        return new ArtisanConsoleDefaultPresenter(
+            $table,
+            $config,
+            $valueFilterHandler,
+            $this->getOutput(),
+            $metadataOption
+        );
     }
 }
