@@ -11,13 +11,14 @@ use GitBalocco\LaravelEnvDocumentator\Path;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ArtisanConsoleDefaultPresenter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\PresenterInterface;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler as ValueFilterHandler;
+use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Config as ConfigFacade;
 
 class EnvDocumentatorCommand extends Command
 {
-    protected $signature = 'env:documentator';
+    protected $signature = 'env:documentator {--a|additional=}';
     protected $description = '';
 
     /**
@@ -29,7 +30,6 @@ class EnvDocumentatorCommand extends Command
     public function handle()
     {
         $path = new Path();
-
         $appConfig = ConfigFacade::get('env-documentator') ?? [];
 
         $config = new Config($path, $appConfig);
@@ -45,6 +45,7 @@ class EnvDocumentatorCommand extends Command
     {
         $valueFilterHandler = new ValueFilterHandler();
         $valueFilterHandler->register(new SecretFilter($config));
-        return new ArtisanConsoleDefaultPresenter($table, $valueFilterHandler, $this->getOutput());
+        $valueFilterHandler->register(new NullFilter());
+        return new ArtisanConsoleDefaultPresenter($table, $config, $valueFilterHandler, $this->getOutput());
     }
 }

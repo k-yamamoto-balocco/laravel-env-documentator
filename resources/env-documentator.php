@@ -18,7 +18,7 @@ return [
         'testing' => '.env.testing.encrypted'
     ],
     'keys' => [
-        'staging' => 'base64:XeBq7lovblPOI/7Xfnkhf0EnhFffSjNYNE37eLDI4cM=',
+        'staging' => 'base64:GxICYOKlvKIulZHv++NgCW5kHgoSwm4KfCx7PU9gfg4=',
     ],
     'ciphers' => [
         'staging' => 'AES-256-CBC',
@@ -33,6 +33,23 @@ return [
             'MAIL_PASSWORD',
             'AWS_SECRET_ACCESS_KEY',
             'PUSHER_APP_SECRET',
+        ]
+    ],
+
+    //追加表示項目
+    'additional' => [
+        //このレベルに追加すると、表示時の列が1つ増える
+        'description' => [
+            'LOG_CHANNEL' => ''
+        ],
+        'type' => [
+            'APP_NAME' => 'string',
+            'APP_ENV' => 'string',
+            'APP_DEBUG' => 'bool'
+        ],
+        'format or possible values' => [
+            'APP_ENV' => 'production,staging,develop,testing',
+            'LOG_CHANNEL' => 'https://readouble.com/laravel/8.x/ja/logging.html#available-channel-drivers'
         ]
     ]
 ];

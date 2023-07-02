@@ -8,6 +8,7 @@ use Generator;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\ConfigurationNotFoundException;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidConfigurationException;
 use GitBalocco\LaravelEnvDocumentator\Path;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use IteratorAggregate;
 use Traversable;
@@ -88,6 +89,24 @@ class Config implements IteratorAggregate
     public function getSecrets(): array
     {
         return $this->config['filters']['secrets'] ?? [];
+    }
+
+    public function getAdditionalColumns(): array
+    {
+        return $this->getAdditional()->keys()->toArray();
+    }
+
+    public function getAdditionalValue(string $columnName, string $itemName): ?string
+    {
+        $additional = $this->getAdditional();
+        $value = data_get($additional, implode('.', [$columnName, $itemName]));
+        //値チェック
+        return $value;
+    }
+
+    private function getAdditional(): Collection
+    {
+        return new Collection($this->config['additional'] ?? []);
     }
 
     /**
