@@ -12,7 +12,6 @@ namespace GitBalocco\LaravelEnvDocumentator\Command\CommandParameters;
  */
 class MetadataOption
 {
-
     public function __construct(private ?string $input, private array $configMetadataColumns)
     {
     }

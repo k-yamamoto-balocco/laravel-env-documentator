@@ -30,8 +30,6 @@ use Illuminate\Encryption\Encrypter as LaravelEncrypter;
 
 class Handler
 {
-    private array $loadDetails = [];
-
     public function __construct(private Config $config)
     {
     }

@@ -17,7 +17,7 @@ class ServiceProvider extends BaseProvider
 
         $this->publishes($this->itemsToPublish());
 
-        $this->loadTranslationsFrom(__DIR__.'/../resources/lang', 'env-documentator');
+        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'env-documentator');
     }
 
     private function commandsToRegister(): array
