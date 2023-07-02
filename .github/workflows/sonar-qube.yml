@@ -1,0 +1,43 @@
+name: Analyze by Sonner Scanner
+on:
+  push:
+    branches:
+      - master
+jobs:
+  laravel-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: shivammathur/setup-php@15c43e89cdef867065b0213be354c2841860869e
+        with:
+          php-version: '8.1'
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Execute tests
+        run: vendor/bin/phpunit --coverage-clover=clover.xml
+      - name: Upload Coverage Report(clover.xml)
+        uses: actions/upload-artifact@v3
+        with:
+          name: coverage
+          path: clover.xml
+  sonarqube:
+    needs: laravel-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - name: Download Coverage Report(clover.xml)
+        uses: actions/download-artifact@v3
+        with:
+          name: coverage
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        with:
+          args: >
+            -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }}
+            -Dsonar.php.coverage.reportPaths=clover.xml
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          LC_ALL: "ja_JP.UTF-8"

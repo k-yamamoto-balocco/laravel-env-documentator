@@ -3,26 +3,33 @@
 declare(strict_types=1);
 
 return [
+    //必須
     'default_key' => env('ENV_DOCUMENTATOR_DEFAULT_KEY'),
+    //必須
     'default_cipher' => 'AES-256-CBC',
-    //各環境毎のkeyを設定する場合、以下に追記
-    'keys' => [
-        'staging' => 'base64:GxICYOKlvKIulZHv++NgCW5kHgoSwm4KfCx7PU9gfg4=',
-    ],
-    //one-dimensional array of string.Each item must be deployment destination name.
+    //必須 one-dimensional array of string.Each item must be deployment destination name.
     'destinations' => [
         'production',
         'staging',
         'develop',
         'testing'
     ],
-    //encrypted .env file paths of each destination.
+    //任意 指定しない場合 .env.[destination name].encrypted となる encrypted .env file paths of each destination.
     'paths' => [
         'production' => '.env.production.encrypted',
         'staging' => '.env.staging.encrypted',
         'develop' => '.env.develop.encrypted',
         'testing' => '.env.testing.encrypted'
     ],
+    //任意 各環境毎のkeyを設定する場合、以下に追記　指定しない場合、default_keyで復号される
+    'keys' => [
+        //例
+        'production' => env('ENV_DOCUMENTATOR_PRODUCTION_KEY'),
+        'staging' => env('ENV_DOCUMENTATOR_STAGING_KEY'),
+        'develop' => env('ENV_DOCUMENTATOR_DEVELOP_KEY'),
+        'testing' => env('ENV_DOCUMENTATOR_TESTING_KEY'),
+    ],
+    //任意 各環境毎のcipherを設定する場合、以下に追記　指定しない場合、default_cipherで復号される
     'ciphers' => [
         'staging' => 'AES-256-CBC',
     ],
