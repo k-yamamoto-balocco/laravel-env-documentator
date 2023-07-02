@@ -80,8 +80,8 @@ class Config implements IteratorAggregate
             yield new Destination(
                 $destinationName,
                 $this->getPaths()[$destinationName],
-                $this->parseKey($this->config['keys'][$destinationName]),
-                strtolower($this->config['ciphers'][$destinationName])
+                $this->getKeyOfDestination($destinationName),
+                $this->getCipherOfDestination($destinationName)
             );
         }
     }
@@ -105,6 +105,22 @@ class Config implements IteratorAggregate
         return (string)$value;
     }
 
+    public function getDefaultKey(): string
+    {
+        return $this->config['default_key'] ?? '';
+    }
+
+    public function getDefaultCipher(): string
+    {
+        return $this->config['default_cipher'] ?? '';
+    }
+
+    private function getKeyOfDestination(string $destinationName): string
+    {
+        $key = $this->config['keys'][$destinationName] ?? $this->getDefaultKey();
+        return $this->parseKey($key);
+    }
+
     private function getMetadata(): Collection
     {
         return new Collection($this->config['metadata'] ?? []);
@@ -125,5 +141,10 @@ class Config implements IteratorAggregate
             $key = base64_decode(Str::after($key, $prefix));
         }
         return $key;
+    }
+
+    private function getCipherOfDestination(string $destinationName): string
+    {
+        return strtolower($this->config['ciphers'][$destinationName] ?? $this->getDefaultCipher());
     }
 }

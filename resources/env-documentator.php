@@ -3,6 +3,12 @@
 declare(strict_types=1);
 
 return [
+    'default_key' => env('ENV_DOCUMENTATOR_DEFAULT_KEY'),
+    'default_cipher' => 'AES-256-CBC',
+    //各環境毎のkeyを設定する場合、以下に追記
+    'keys' => [
+        'staging' => 'base64:GxICYOKlvKIulZHv++NgCW5kHgoSwm4KfCx7PU9gfg4=',
+    ],
     //one-dimensional array of string.Each item must be deployment destination name.
     'destinations' => [
         'production',
@@ -16,9 +22,6 @@ return [
         'staging' => '.env.staging.encrypted',
         'develop' => '.env.develop.encrypted',
         'testing' => '.env.testing.encrypted'
-    ],
-    'keys' => [
-        'staging' => 'base64:GxICYOKlvKIulZHv++NgCW5kHgoSwm4KfCx7PU9gfg4=',
     ],
     'ciphers' => [
         'staging' => 'AES-256-CBC',
