@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Presenter;
 
+use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\AdditionalOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\ValueFilterHandlerInterface;
@@ -16,7 +17,8 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
         TableOfEnvItemsAndDestinations $tableOfEnvItemsAndDestinations,
         private Config $config,
         private ValueFilterHandlerInterface $valueFilterHandler,
-        private OutputStyle $output
+        private OutputStyle $output,
+        private AdditionalOption $additionalOption
     ) {
         parent::__construct($tableOfEnvItemsAndDestinations);
     }
@@ -41,7 +43,7 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
     {
         return array_merge(
             ['name'],
-            $this->config->getAdditionalColumns(),
+            $this->additionalOption->visibleAdditionalColumns(),
             $this->getTableOfEnvItemsAndDestinations()->getDestinations()
         );
     }
@@ -56,15 +58,12 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
     {
         $rows = [];
 
-        //additional
-
         foreach ($this->getTableOfEnvItemsAndDestinations()->getEnvItemNames() as $itemName) {
             $additional = [];
-            foreach ($this->config->getAdditionalColumns() as $columnName) {
+            foreach ($this->additionalOption->visibleAdditionalColumns() as $columnName) {
                 $additionalValue = $this->config->getAdditionalValue($columnName, $itemName);
                 $additional[] = $additionalValue;
             }
-
 
             $values = $this->getTableOfEnvItemsAndDestinations()->table()->pluck($itemName)->toArray();
             foreach ($values as $key => $value) {

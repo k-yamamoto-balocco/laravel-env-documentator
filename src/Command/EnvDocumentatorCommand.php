@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Command;
 
+use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\AdditionalOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
@@ -33,6 +34,7 @@ class EnvDocumentatorCommand extends Command
         $appConfig = ConfigFacade::get('env-documentator') ?? [];
 
         $config = new Config($path, $appConfig);
+
         $handler = new Handler($config);
         $result = $handler->__invoke();
 
@@ -43,9 +45,11 @@ class EnvDocumentatorCommand extends Command
 
     private function decidePresenter(Config $config, TableOfEnvItemsAndDestinations $table): PresenterInterface
     {
+        $additionalOption = new AdditionalOption($this->option('additional'), $config->getAdditionalColumns());
+
         $valueFilterHandler = new ValueFilterHandler();
         $valueFilterHandler->register(new SecretFilter($config));
         $valueFilterHandler->register(new NullFilter());
-        return new ArtisanConsoleDefaultPresenter($table, $config, $valueFilterHandler, $this->getOutput());
+        return new ArtisanConsoleDefaultPresenter($table, $config, $valueFilterHandler, $this->getOutput(),$additionalOption);
     }
 }

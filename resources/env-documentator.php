@@ -47,9 +47,9 @@ return [
             'APP_ENV' => 'string',
             'APP_DEBUG' => 'bool'
         ],
-        'format or possible values' => [
+        'format' => [
             'APP_ENV' => 'production,staging,develop,testing',
             'LOG_CHANNEL' => 'https://readouble.com/laravel/8.x/ja/logging.html#available-channel-drivers'
-        ]
-    ]
+        ],
+    ],
 ];

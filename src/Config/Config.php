@@ -101,7 +101,8 @@ class Config implements IteratorAggregate
         $additional = $this->getAdditional();
         $value = data_get($additional, implode('.', [$columnName, $itemName]));
         //値チェック
-        return $value;
+
+        return (string)$value;
     }
 
     private function getAdditional(): Collection
