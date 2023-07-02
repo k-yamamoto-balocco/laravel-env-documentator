@@ -2,7 +2,7 @@ name: Analyze by Sonner Scanner
 on:
   push:
     branches:
-      - master
+      - main
 jobs:
   laravel-tests:
     runs-on: ubuntu-latest
