@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 /**
  * php-qa-utils 設定ファイル
  * パスは、プロジェクトルートからの相対パスで指定する。
