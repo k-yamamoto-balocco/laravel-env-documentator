@@ -34,6 +34,7 @@ class SecretFilter implements ValueFilterInterface
             return false;
         }
         $secrets = $this->config->getSecrets();
+
         return array_key_exists($key, $secrets);
     }
 }

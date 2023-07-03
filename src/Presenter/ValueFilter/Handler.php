@@ -24,7 +24,10 @@ class Handler implements ValueFilterHandlerInterface
     {
         /** @var ValueFilterInterface $valueFilter */
         foreach ($this->filters as $valueFilter) {
-            if ($valueFilter->validate($itemName, $value)) {
+
+            $result=$valueFilter->validate($itemName, $value);
+
+            if ($result) {
                 $value = $valueFilter->__invoke($itemName, $value);
             }
         }
