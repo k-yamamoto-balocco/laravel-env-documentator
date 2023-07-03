@@ -20,5 +20,7 @@ jobs:
         env:
           COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.COMPOSER_AUTH_PERSONAL_ACCESS_TOKEN}}"} }'
         run: composer install -q --no-ansi --no-interaction --no-scripts --no-progress --prefer-dist
+      - name: Change Permission
+        run: chmod -R 666 scripts/qc
       - name: Execute quality check
         run: vendor/bin/balocco-qa run qc
