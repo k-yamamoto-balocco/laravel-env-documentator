@@ -6,10 +6,6 @@ on:
       - 'release/**'
       - 'feature/**'
       - 'hotfix/**'
-    paths:
-      - '**.php'
-      - '**.xml'
-      - 'composer.json'
 jobs:
   tests:
     runs-on: ubuntu-latest
