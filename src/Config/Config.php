@@ -5,10 +5,9 @@ declare(strict_types=1);
 namespace GitBalocco\LaravelEnvDocumentator\Config;
 
 use Generator;
-use GitBalocco\LaravelEnvDocumentator\Exceptions\ConfigurationNotFoundException;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidConfigurationException;
-use GitBalocco\LaravelEnvDocumentator\Path;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Config as ConfigFacade;
 use Illuminate\Support\Str;
 use IteratorAggregate;
 use Traversable;
@@ -23,18 +22,11 @@ class Config implements IteratorAggregate
     private array $config;
 
     /**
-     * @param Path $path
-     * @param array $applicationConfig
-     * @throws ConfigurationNotFoundException
+     *
      */
-    public function __construct(Path $path, array $applicationConfig)
+    public function __construct()
     {
-        $defaultConfigPath = $path->getDefaultConfig();
-        if (!file_exists($defaultConfigPath)) {
-            throw new ConfigurationNotFoundException();
-        }
-        $arrayDefaultConfig = require $defaultConfigPath;
-        $this->config = array_merge($arrayDefaultConfig, $applicationConfig);
+        $this->config = ConfigFacade::get('env-documentator');
     }
 
     /**

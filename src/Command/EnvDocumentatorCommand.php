@@ -30,11 +30,7 @@ class EnvDocumentatorCommand extends Command
      */
     public function handle()
     {
-        $path = new Path();
-        $appConfig = ConfigFacade::get('env-documentator') ?? [];
-
-        $config = new Config($path, $appConfig);
-
+        $config = new Config();
         $handler = new Handler($config);
         $result = $handler->__invoke();
 
