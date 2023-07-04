@@ -40,6 +40,4 @@ abstract class AbstractConverter implements PresenterInterface
     {
         return $this->tableOfEnvItemsAndDestinations;
     }
-
-
 }

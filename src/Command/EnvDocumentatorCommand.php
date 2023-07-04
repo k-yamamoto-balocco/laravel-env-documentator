@@ -16,6 +16,7 @@ use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler as ValueFilt
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter;
 use Illuminate\Console\Command;
+use Symfony\Component\Console\Helper\Table;
 
 class EnvDocumentatorCommand extends Command
 {
@@ -55,7 +56,7 @@ class EnvDocumentatorCommand extends Command
 
         return new ArtisanConsoleDefaultPresenter(
             converter: $converter,
-            output: $this->getOutput(),
+            symfonyTableHelper: new Table($this->getOutput()),
         );
     }
 }

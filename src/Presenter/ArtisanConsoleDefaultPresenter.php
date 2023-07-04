@@ -4,14 +4,13 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Presenter;
 
-use Illuminate\Console\OutputStyle;
 use Symfony\Component\Console\Helper\Table;
 
-class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements PresenterInterface
+class ArtisanConsoleDefaultPresenter implements PresenterInterface
 {
     public function __construct(
         private ArtisanConsoleDefaultConverter $converter,
-        private OutputStyle $output,
+        private Table $symfonyTableHelper,
     ) {
     }
 
@@ -25,8 +24,9 @@ class ArtisanConsoleDefaultPresenter extends AbstractPresenter implements Presen
 
     public function render(array $header, array $rows)
     {
-        $table = new Table($this->output);
-        $table->setHeaders($header)->setRows($rows)->setStyle('default');
-        $table->render();
+        $this->symfonyTableHelper->setHeaders($header);
+        $this->symfonyTableHelper->setRows($rows);
+        $this->symfonyTableHelper->setStyle('default');
+        $this->symfonyTableHelper->render();
     }
 }
