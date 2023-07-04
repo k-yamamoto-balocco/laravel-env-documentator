@@ -14,6 +14,7 @@ use PHPUnit\Framework\TestCase;
  * @coversDefaultClass \GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter
  * @uses \GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter
  * @uses \GitBalocco\LaravelEnvDocumentator\Config\Config
+ * @uses \GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidValueFilterCallException
  */
 class SecretFilterTest extends TestCase
 {
@@ -137,6 +138,6 @@ class SecretFilterTest extends TestCase
         $mock->allows('getSecrets')->andReturn([]);
         $instance = new SecretFilter($mock);
         $this->expectException(InvalidValueFilterCallException::class);
-        $actual = $instance->__invoke('any-key', null);
+        $instance->__invoke('any-key', null);
     }
 }

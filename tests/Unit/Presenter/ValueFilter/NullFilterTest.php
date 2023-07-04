@@ -4,12 +4,14 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Test\Unit\Presenter\ValueFilter;
 
+use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidValueFilterCallException;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter;
 use PHPUnit\Framework\TestCase;
 
 /**
  * @coversDefaultClass \GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter
  * @uses \GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter
+ * @uses \GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidValueFilterCallException
  */
 class NullFilterTest extends TestCase
 {
@@ -33,7 +35,7 @@ class NullFilterTest extends TestCase
     public function test_invoke()
     {
         $object = new NullFilter();
-        $this->assertSame('(NOT EXIST)', $object->__invoke('anyKey', 'anyValue'));
+        $this->assertSame('(NOT EXIST)', $object->__invoke('anyKey', null));
     }
 
     /**
@@ -49,5 +51,15 @@ class NullFilterTest extends TestCase
     {
         $object = new NullFilter();
         $this->assertSame($expectation, $object->validate('', $argValue));
+    }
+
+    /**
+     * @covers ::__invoke
+     */
+    public function test___invokeRaiseException()
+    {
+        $object = new NullFilter();
+        $this->expectException(InvalidValueFilterCallException::class);
+        $object->__invoke('any-key', 'not null value');
     }
 }
