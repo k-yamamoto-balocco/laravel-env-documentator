@@ -16,16 +16,8 @@ class ArtisanConsoleDefaultPresenter implements PresenterInterface
 
     public function __invoke()
     {
-        $this->render(
-            $this->converter->convertToHeader(),
-            $this->converter->convertToRows()
-        );
-    }
-
-    public function render(array $header, array $rows)
-    {
-        $this->symfonyTableHelper->setHeaders($header);
-        $this->symfonyTableHelper->setRows($rows);
+        $this->symfonyTableHelper->setHeaders($this->converter->convertToHeader());
+        $this->symfonyTableHelper->setRows($this->converter->convertToRows());
         $this->symfonyTableHelper->setStyle('default');
         $this->symfonyTableHelper->render();
     }
