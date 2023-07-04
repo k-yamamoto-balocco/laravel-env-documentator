@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace GitBalocco\LaravelEnvDocumentator\Test\Unit\Presenter;
+namespace GitBalocco\LaravelEnvDocumentator\Test\Unit\Presenter\ValueFilter;
 
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\ValueFilterHandlerInterface;
