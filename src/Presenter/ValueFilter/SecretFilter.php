@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter;
 
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
+use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidValueFilterCallException;
 
 class SecretFilter implements ValueFilterInterface
 {
@@ -16,6 +17,9 @@ class SecretFilter implements ValueFilterInterface
 
     public function __invoke(string $key, mixed $value): mixed
     {
+        if (!$this->validate($key, $value)) {
+            throw new InvalidValueFilterCallException();
+        }
         $secrets = $this->config->getSecrets();
 
         if ($secrets[$key]) {
@@ -34,7 +38,6 @@ class SecretFilter implements ValueFilterInterface
             return false;
         }
         $secrets = $this->config->getSecrets();
-
         return array_key_exists($key, $secrets);
     }
 }
