@@ -9,6 +9,14 @@ use Illuminate\Support\ServiceProvider as BaseProvider;
 
 class ServiceProvider extends BaseProvider
 {
+    public function register()
+    {
+        $this->mergeConfigFrom(
+            __DIR__ . '/../resources/env-documentator.php',
+            'env-documentator'
+        );
+    }
+
     public function boot()
     {
         if ($this->app->runningInConsole()) {

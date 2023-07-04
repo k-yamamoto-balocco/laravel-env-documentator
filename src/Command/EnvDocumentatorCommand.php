@@ -9,13 +9,14 @@ use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Path;
+use GitBalocco\LaravelEnvDocumentator\Presenter\ArtisanConsoleDefaultConverter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ArtisanConsoleDefaultPresenter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\PresenterInterface;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler as ValueFilterHandler;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter;
 use Illuminate\Console\Command;
-use Illuminate\Support\Facades\Config as ConfigFacade;
+use Symfony\Component\Console\Helper\Table;
 
 class EnvDocumentatorCommand extends Command
 {
@@ -23,18 +24,12 @@ class EnvDocumentatorCommand extends Command
     protected $description = '';
 
     /**
-     * handle
-     * 暫定実装
      * @return int
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function handle()
     {
-        $path = new Path();
-        $appConfig = ConfigFacade::get('env-documentator') ?? [];
-
-        $config = new Config($path, $appConfig);
-
+        $config = new Config();
         $handler = new Handler($config);
         $result = $handler->__invoke();
 
@@ -45,17 +40,23 @@ class EnvDocumentatorCommand extends Command
 
     private function decidePresenter(Config $config, TableOfEnvItemsAndDestinations $table): PresenterInterface
     {
+        //暫定実装。他の形式での出力をサポートする場合に改修する。
         $metadataOption = new MetadataOption($this->option('metadata'), $config->getMetadataColumns());
 
         $valueFilterHandler = new ValueFilterHandler();
         $valueFilterHandler->register(new SecretFilter($config));
         $valueFilterHandler->register(new NullFilter());
+
+        $converter = new ArtisanConsoleDefaultConverter(
+            tableOfEnvItemsAndDestinations: $table,
+            config: $config,
+            valueFilterHandler: $valueFilterHandler,
+            metadataOption: $metadataOption
+        );
+
         return new ArtisanConsoleDefaultPresenter(
-            $table,
-            $config,
-            $valueFilterHandler,
-            $this->getOutput(),
-            $metadataOption
+            converter: $converter,
+            symfonyTableHelper: new Table($this->getOutput()),
         );
     }
 }

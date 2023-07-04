@@ -37,12 +37,12 @@ return [
     //以下の項目は結果に表示しない。置換したい文字列を指定することも可能。デフォルトは ********
     'filters' => [
         'secrets' => [
-            'APP_KEY' => '********',
-            'DB_PASSWORD',
-            'REDIS_PASSWORD',
-            'MAIL_PASSWORD',
-            'AWS_SECRET_ACCESS_KEY',
-            'PUSHER_APP_SECRET',
+            'APP_KEY' => null,
+            'DB_PASSWORD' => null,
+            'REDIS_PASSWORD' => null,
+            'MAIL_PASSWORD' => null,
+            'AWS_SECRET_ACCESS_KEY' => null,
+            'PUSHER_APP_SECRET' => null,
         ]
     ],
 

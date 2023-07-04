@@ -7,7 +7,7 @@ namespace GitBalocco\LaravelEnvDocumentator\Test\Feature;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
-use GitBalocco\LaravelEnvDocumentator\Path;
+use Illuminate\Support\Facades\Config as ConfigFacade;
 
 /**
  * @uses GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations
@@ -15,7 +15,6 @@ use GitBalocco\LaravelEnvDocumentator\Path;
  * @uses GitBalocco\LaravelEnvDocumentator\Config\Destination
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Decrypter
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Handler
- * @uses GitBalocco\LaravelEnvDocumentator\Path
  * @uses GitBalocco\LaravelEnvDocumentator\ServiceProvider
  */
 class DecryptionHandlerTest extends FeatureTestCase
@@ -25,11 +24,13 @@ class DecryptionHandlerTest extends FeatureTestCase
      * @covers \GitBalocco\LaravelEnvDocumentator\Decryption\Handler
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
-    public function test_正常系(){
-
+    public function test_正常系()
+    {
         $testStubs = realpath(__DIR__ . '/../stubs/decrypt-testcase01-conf.php');
         $config = require $testStubs;
-        $config = new Config(new Path(), $config);
+        ConfigFacade::set('env-documentator', $config);
+
+        $config = new Config();
         $handler = new Handler($config);
         $actual = $handler->__invoke();
         $this->assertInstanceOf(TableOfEnvItemsAndDestinations::class, $actual);
