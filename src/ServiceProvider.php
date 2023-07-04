@@ -12,7 +12,8 @@ class ServiceProvider extends BaseProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/../resources/env-documentator.php', 'env-documentator'
+            __DIR__ . '/../resources/env-documentator.php',
+            'env-documentator'
         );
     }
 
