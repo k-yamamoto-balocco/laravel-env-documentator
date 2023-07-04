@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace GitBalocco\LaravelEnvDocumentator\Exceptions;
 
-use League\CommonMark\Exception\LogicException;
+use LogicException;
 
 class InvalidValueFilterCallException extends LogicException
 {
@@ -15,5 +15,4 @@ class InvalidValueFilterCallException extends LogicException
         }
         parent::__construct($message, $code, $previous);
     }
-
 }
