@@ -6,6 +6,7 @@ namespace GitBalocco\LaravelEnvDocumentator\Command;
 
 use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\MetadataOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
+use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\DefaultKeyValidator;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Path;
@@ -29,6 +30,9 @@ class EnvDocumentatorCommand extends Command
      */
     public function handle()
     {
+        $validator=new DefaultKeyValidator(1);
+        dd($validator->__invoke());
+
         $config = new Config();
         $handler = new Handler($config);
         $result = $handler->__invoke();

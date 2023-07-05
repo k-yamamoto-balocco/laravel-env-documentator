@@ -21,9 +21,6 @@ class Config implements IteratorAggregate
 {
     private array $config;
 
-    /**
-     *
-     */
     public function __construct()
     {
         $this->config = ConfigFacade::get('env-documentator');
