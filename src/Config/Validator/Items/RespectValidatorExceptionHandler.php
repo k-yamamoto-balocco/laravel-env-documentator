@@ -8,7 +8,6 @@ use Respect\Validation\Exceptions\ValidationException;
 
 class RespectValidatorExceptionHandler
 {
-
     public function __construct(private ValidationException $validationException)
     {
     }

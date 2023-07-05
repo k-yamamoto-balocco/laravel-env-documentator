@@ -1,6 +1,5 @@
 <?php
 
-
 namespace GitBalocco\LaravelEnvDocumentator\Config\Validator;
 
 use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\RespectValidatorExceptionHandler;
@@ -11,5 +10,4 @@ interface ValidatorInterface
     public function definition(): Validatable;
 
     public function getExceptionHandler(): ?RespectValidatorExceptionHandler;
-
 }

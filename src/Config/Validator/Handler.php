@@ -6,5 +6,4 @@ namespace GitBalocco\LaravelEnvDocumentator\Config\Validator;
 
 class Handler
 {
-
 }

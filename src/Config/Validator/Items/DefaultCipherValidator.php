@@ -19,5 +19,4 @@ class DefaultCipherValidator extends BaseValidator implements ValidatorInterface
     {
         return new v(v::notEmpty(), $this->cipherValidator->definition());
     }
-
 }

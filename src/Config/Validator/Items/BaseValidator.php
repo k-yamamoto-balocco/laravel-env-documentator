@@ -44,5 +44,4 @@ abstract class BaseValidator implements ValidatorInterface
     {
         return $this->candidate;
     }
-
 }

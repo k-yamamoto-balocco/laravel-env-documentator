@@ -34,11 +34,6 @@ class EnvDocumentatorCommand extends Command
     public function handle()
     {
 
-        $object =new DefaultCipherValidator(new CipherValidator());
-        $object->__invoke('');
-        dd($object->getExceptionHandler()->getMessages());
-
-
         $config = new Config();
         $handler = new Handler($config);
         $result = $handler->__invoke();

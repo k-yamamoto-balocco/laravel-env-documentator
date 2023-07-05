@@ -19,5 +19,4 @@ class DestinationValidator extends BaseValidator implements ValidatorInterface
                 v::notEmpty()->stringType()
             );
     }
-
 }
