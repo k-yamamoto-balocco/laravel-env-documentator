@@ -11,7 +11,8 @@
     "laravel/framework": ">=9.32.0",
     "k-yamamoto-balocco/laravel-ui-cli": "0.2.0",
     "vlucas/phpdotenv": "^5.5",
-    "symfony/console": "^6.3"
+    "symfony/console": "^6.3",
+    "respect/validation": "^2.2"
   },
   "autoload": {
     "psr-4": {

@@ -26,7 +26,8 @@
                 <value>
                     \Illuminate\Support\Facades\Config,
                     \Illuminate\Support\Str,
-                    \Dotenv\Dotenv
+                    \Dotenv\Dotenv,
+                    \Respect\Validation\Validator
                 </value>
             </property>
         </properties>

@@ -6,7 +6,7 @@ return [
     //必須
     'default_key' => env('ENV_DOCUMENTATOR_DEFAULT_KEY'),
     //必須
-    'default_cipher' => 'AES-256-CBC',
+    'default_cipher' => 'aes-256-cbc',
     //必須 one-dimensional array of string.Each item must be deployment destination name.
     'destinations' => [
         'production',
@@ -23,7 +23,6 @@ return [
     ],
     //任意 各環境毎のkeyを設定する場合、以下に追記　指定しない場合、default_keyで復号される
     'keys' => [
-        //例
         'production' => env('ENV_DOCUMENTATOR_PRODUCTION_KEY'),
         'staging' => env('ENV_DOCUMENTATOR_STAGING_KEY'),
         'develop' => env('ENV_DOCUMENTATOR_DEVELOP_KEY'),
@@ -31,7 +30,7 @@ return [
     ],
     //任意 各環境毎のcipherを設定する場合、以下に追記　指定しない場合、default_cipherで復号される
     'ciphers' => [
-        'staging' => 'AES-256-CBC',
+        'staging' => 'aes-256-cbc',
     ],
 
     //以下の項目は結果に表示しない。置換したい文字列を指定することも可能。デフォルトは ********
