@@ -6,9 +6,7 @@ namespace GitBalocco\LaravelEnvDocumentator\Command;
 
 use GitBalocco\LaravelEnvDocumentator\Command\CommandParameters\MetadataOption;
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
-use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\CipherValidator;
-use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\DefaultCipherValidator;
-use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\DefaultKeyValidator;
+use GitBalocco\LaravelEnvDocumentator\Config\Validator\Handler as ValidatorHandler;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Path;
@@ -19,7 +17,6 @@ use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\Handler as ValueFilt
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\NullFilter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter;
 use Illuminate\Console\Command;
-use Respect\Validation\Validator;
 use Symfony\Component\Console\Helper\Table;
 
 class EnvDocumentatorCommand extends Command
@@ -33,6 +30,17 @@ class EnvDocumentatorCommand extends Command
      */
     public function handle()
     {
+        $validatorHandler = new ValidatorHandler();
+        if (false === $validatorHandler->__invoke()) {
+            $this->error('invalid configuration.');
+            foreach ($validatorHandler->getMessages() as $validatorClass => $details) {
+                $this->line($validatorClass);
+                foreach ($details as $errorMessage) {
+                    $this->warn($errorMessage);
+                }
+            }
+            return Command::INVALID;
+        }
 
         $config = new Config();
         $handler = new Handler($config);
