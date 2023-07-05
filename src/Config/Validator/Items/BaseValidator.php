@@ -9,24 +9,33 @@ use Respect\Validation\Exceptions\ValidationException;
 
 abstract class BaseValidator implements ValidatorInterface
 {
-    private ?ValidationException $validationException = null;
+    private ?RespectValidatorExceptionHandler $exceptionHandler;
 
-    public function __construct(private mixed $candidate)
+    public function __construct(private mixed $candidate = '')
     {
+        $this->exceptionHandler = null;
     }
 
-    public function getMessage(): string
+    /**
+     * @return ?RespectValidatorExceptionHandler
+     */
+    public function getExceptionHandler(): ?RespectValidatorExceptionHandler
     {
-        return $this->validationException?->getMessage() ?? '';
+        return $this->exceptionHandler;
     }
 
-    public function __invoke(): bool
+
+    public function __invoke(mixed $candidate = null): bool
     {
+        if (is_null($candidate)) {
+            $candidate = $this->candidate;
+        }
+
         try {
-            $this->definition()->assert($this->candidate);
+            $this->definition()->assert($candidate);
             return true;
         } catch (ValidationException $e) {
-            $this->validationException = $e;
+            $this->exceptionHandler = new RespectValidatorExceptionHandler($e);
         }
         return false;
     }

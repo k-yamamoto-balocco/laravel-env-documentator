@@ -3,11 +3,13 @@
 
 namespace GitBalocco\LaravelEnvDocumentator\Config\Validator;
 
+use GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\RespectValidatorExceptionHandler;
 use Respect\Validation\Validatable;
 
 interface ValidatorInterface
 {
     public function definition(): Validatable;
-    public function getMessage(): string;
+
+    public function getExceptionHandler(): ?RespectValidatorExceptionHandler;
 
 }
