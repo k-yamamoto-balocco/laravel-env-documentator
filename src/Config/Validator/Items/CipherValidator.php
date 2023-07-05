@@ -16,6 +16,6 @@ class CipherValidator extends BaseValidator implements ValidatorInterface
      */
     public function definition(): Validatable
     {
-        return v::in(['aes-128-cbc', 'aes-256-cbc', 'aes-128-gcm', 'aes-256-gcm']);
+        return v::stringType()->in(['aes-128-cbc', 'aes-256-cbc', 'aes-128-gcm', 'aes-256-gcm']);
     }
 }

@@ -23,7 +23,6 @@ return [
     ],
     //任意 各環境毎のkeyを設定する場合、以下に追記　指定しない場合、default_keyで復号される
     'keys' => [
-        //例
         'production' => env('ENV_DOCUMENTATOR_PRODUCTION_KEY'),
         'staging' => env('ENV_DOCUMENTATOR_STAGING_KEY'),
         'develop' => env('ENV_DOCUMENTATOR_DEVELOP_KEY'),
