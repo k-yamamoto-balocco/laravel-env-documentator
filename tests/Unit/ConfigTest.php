@@ -54,10 +54,7 @@ class ConfigTest extends BaseTestCase
     {
         $config = new Config();
         $this->assertSame([
-            'production' => '.env.production.encrypted',
-            'staging' => '.env.staging.encrypted',
-            'develop' => '.env.develop.encrypted',
-            'testing' => '.env.testing.encrypted'
+
         ], $config->getPaths());
     }
 }

@@ -21,8 +21,8 @@ use Symfony\Component\Console\Helper\Table;
 
 class EnvDocumentatorCommand extends Command
 {
-    protected $signature = 'env:documentator {--m|metadata=}';
-    protected $description = '';
+    protected $signature = 'env:documentator {--m|metadata= : 追加表示するメタデータ項目。複数の場合,区切りで指定する}';
+    protected $description = '暗号化された環境変数設定ファイルを復号し、整理して表示する';
 
     /**
      * @return int
@@ -32,9 +32,9 @@ class EnvDocumentatorCommand extends Command
     {
         $validatorHandler = new ValidatorHandler();
         if (false === $validatorHandler->__invoke()) {
-            $this->error('invalid configuration.');
+            $this->error('Invalid configuration.Please modify config/env-documentator.php');
             foreach ($validatorHandler->getMessages() as $validatorClass => $details) {
-                $this->line($validatorClass);
+                $this->line('invalid configuration in:"' . $validatorClass . '"');
                 foreach ($details as $errorMessage) {
                     $this->warn($errorMessage);
                 }

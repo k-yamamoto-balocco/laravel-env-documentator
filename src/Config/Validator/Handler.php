@@ -25,27 +25,39 @@ class Handler
         $this->messages = [];
         $this->validators = new Collection();
 
-        $this->validators->add(new DefaultKeyValidator(ConfigFacade::get('env-documentator.default_key')));
-        $this->validators->add(
+        $this->validators->put(
+            'default_key',
+            new DefaultKeyValidator(ConfigFacade::get('env-documentator.default_key'))
+        );
+        $this->validators->put(
+            'default_cipher',
             new DefaultCipherValidator(
                 new CipherValidator(),
                 ConfigFacade::get('env-documentator.default_cipher')
             )
         );
-        $this->validators->add(new DestinationValidator(ConfigFacade::get('env-documentator.destinations')));
-        $this->validators->add(
+
+        $this->validators->put(
+            'destinations',
+            new DestinationValidator(ConfigFacade::get('env-documentator.destinations'))
+        );
+
+        $this->validators->put(
+            'paths',
             new PathsValidator(
                 ConfigFacade::get('env-documentator.destinations'),
                 ConfigFacade::get('env-documentator.paths')
             )
         );
-        $this->validators->add(
+        $this->validators->put(
+            'keys',
             new KeysValidator(
                 ConfigFacade::get('env-documentator.destinations'),
                 ConfigFacade::get('env-documentator.keys')
             )
         );
-        $this->validators->add(
+        $this->validators->put(
+            'ciphers',
             new CiphersValidator(
                 new CipherValidator(),
                 ConfigFacade::get('env-documentator.destinations'),
@@ -58,13 +70,13 @@ class Handler
     {
         $result = true;
         $messages = [];
-        foreach ($this->validators as $validator) {
+        foreach ($this->validators as $configName => $validator) {
             if (false === $validator->__invoke()) {
                 $result = false;
             }
             $exceptionHandler = $validator->getExceptionHandler();
             if (!is_null($exceptionHandler)) {
-                $messages[get_class($validator)] = $exceptionHandler->getMessages();
+                $messages[$configName] = $exceptionHandler->getMessages();
             }
         }
         $this->messages = $messages;
