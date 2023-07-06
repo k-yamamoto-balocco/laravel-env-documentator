@@ -72,12 +72,15 @@ return [
          * @see \GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\SecretFilter::__invoke()
          */
         'secrets' => [
+            //secret in default .env.example
             'APP_KEY' => null,
             'DB_PASSWORD' => null,
             'REDIS_PASSWORD' => null,
             'MAIL_PASSWORD' => null,
             'AWS_SECRET_ACCESS_KEY' => null,
             'PUSHER_APP_SECRET' => null,
+            //setting item for this package
+            'ENV_DOCUMENTATOR_DEFAULT_KEY' => null,
         ]
     ],
 
@@ -86,18 +89,129 @@ return [
     //複数指定したい場合は , 区切り
     //php artisan env:documentator -m description,type,format
     'metadata' => [
-        //以下に、キー名
+        //各設定項目についての簡単な説明
         'description' => [
-            'LOG_CHANNEL' => ''
+            //APP
+            'APP_NAME' => 'アプリケーション名',
+            'APP_ENV' => 'デプロイ環境名(production,staging,develop,testing)',
+            'APP_KEY' => 'https://readouble.com/laravel/9.x/ja/encryption.html',
+            'APP_DEBUG' => 'https://readouble.com/laravel/9.x/ja/configuration.html#debug-mode',
+            'APP_URL' => 'アプリケーションURL',
+            //LOG
+            'LOG_CHANNEL' => 'https://readouble.com/laravel/9.x/ja/logging.html#available-channel-drivers',
+            'LOG_DEPRECATIONS_CHANNEL' => 'https://readouble.com/laravel/9.x/ja/logging.html#logging-deprecation-warnings',
+            'LOG_LEVEL' => 'https://readouble.com/laravel/9.x/ja/logging.html#log-levels',
+            //DATABASE
+            'DB_CONNECTION' => 'php artisan tinker --execute="dd(array_keys(config(\"database.connections\")));"',
+            'DB_HOST' => 'Ip address,hostname,FQDN of database server.',
+            'DB_PORT' => 'データベースのポート番号',
+            'DB_DATABASE' => 'データベース名',
+            'DB_USERNAME' => 'データベースユーザ名',
+            'DB_PASSWORD' => 'DB_USERNAMEのパスワード',
+            //DRIVERS
+            "BROADCAST_DRIVER" => "https://readouble.com/laravel/9.x/ja/broadcasting.html",
+            "CACHE_DRIVER" => "https://readouble.com/laravel/9.x/ja/cache.html",
+            "FILESYSTEM_DISK" => "https://readouble.com/laravel/9.x/ja/filesystem.html",
+            "QUEUE_CONNECTION" => "https://readouble.com/laravel/9.x/ja/queues.html",
+            "SESSION_DRIVER" => "https://readouble.com/laravel/9.x/ja/session.html",
+            "SESSION_LIFETIME" => "セッション有効期限（分）",
+            //MEMCACHED
+            "MEMCACHED_HOST" => "Ip address,hostname,FQDN of MEMCACHED server.",
+            //REDIS
+            "REDIS_HOST" => "Ip address,hostname,FQDN of REDIS server.",
+            "REDIS_PASSWORD" => "redisサーバのパスワード",
+            "REDIS_PORT" => "redisサーバのポート番号（6379）",
+            //MAIL
+            "MAIL_MAILER" => "https://readouble.com/laravel/9.x/ja/mail.html",
+            "MAIL_HOST" => "",
+            "MAIL_PORT" => "smtpサーバのポート番号（587,2525）",
+            "MAIL_USERNAME" => "smtpサーバのユーザ名",
+            "MAIL_PASSWORD" => "MAIL_USERNAMEのパスワード",
+            "MAIL_ENCRYPTION" => "暗号化方式",
+            "MAIL_FROM_ADDRESS" => "差出人メールアドレス",
+            "MAIL_FROM_NAME" => "差出人名",
+            //AWS
+            'AWS_ACCESS_KEY_ID' => 'https://docs.aws.amazon.com/ja_jp/sdk-for-php/v3/developer-guide/guide_credentials_environment.html',
+            'AWS_SECRET_ACCESS_KEY' => 'https://docs.aws.amazon.com/ja_jp/sdk-for-php/v3/developer-guide/guide_credentials_environment.html',
+            'AWS_DEFAULT_REGION' => 'https://readouble.com/laravel/9.x/ja/filesystem.html#s3-driver-configuration',
+            'AWS_BUCKET' => 'S3バケット名',
+            'AWS_USE_PATH_STYLE_ENDPOINT' => '(true/false)',
+            //PUSHER
+            'PUSHER_APP_ID' => '',
+            'PUSHER_APP_KEY' => '',
+            'PUSHER_APP_SECRET' => '',
+            'PUSHER_HOST' => '',
+            'PUSHER_PORT' => '',
+            'PUSHER_SCHEME' => '',
+            'PUSHER_APP_CLUSTER' => '',
+            //VITE
+            'VITE_PUSHER_APP_KEY' => '',
+            'VITE_PUSHER_HOST' => '',
+            'VITE_PUSHER_PORT' => '',
+            'VITE_PUSHER_SCHEME' => '',
+            'VITE_PUSHER_APP_CLUSTER' => '',
         ],
-        'type' => [
-            'APP_NAME' => 'string',
-            'APP_ENV' => 'string',
-            'APP_DEBUG' => 'bool'
-        ],
-        'format' => [
-            'APP_ENV' => 'production,staging,develop,testing',
-            'LOG_CHANNEL' => 'https://readouble.com/laravel/8.x/ja/logging.html#available-channel-drivers'
+        //Laravel インストール時点で.env.exampleに用意されている項目であるか
+        'laravels' => [
+            //APP
+            'APP_NAME' => 'yes',
+            'APP_ENV' => 'yes',
+            'APP_KEY' => 'yes',
+            'APP_DEBUG' => 'yes',
+            'APP_URL' => 'yes',
+            //LOG
+            'LOG_CHANNEL' => 'yes',
+            'LOG_DEPRECATIONS_CHANNEL' => 'yes',
+            'LOG_LEVEL' => 'yes',
+            //DATABASE
+            'DB_CONNECTION' => 'yes',
+            'DB_HOST' => 'yes',
+            'DB_PORT' => 'yes',
+            'DB_DATABASE' => 'yes',
+            'DB_USERNAME' => 'yes',
+            'DB_PASSWORD' => 'yes',
+            //DRIVERS
+            'BROADCAST_DRIVER' => 'yes',
+            'CACHE_DRIVER' => 'yes',
+            'FILESYSTEM_DISK' => 'yes',
+            'QUEUE_CONNECTION' => 'yes',
+            'SESSION_DRIVER' => 'yes',
+            'SESSION_LIFETIME' => 'yes',
+            //MEMCACHED
+            'MEMCACHED_HOST' => 'yes',
+            //REDIS
+            'REDIS_HOST' => 'yes',
+            'REDIS_PASSWORD' => 'yes',
+            'REDIS_PORT' => 'yes',
+            //MAIL
+            'MAIL_MAILER' => 'yes',
+            'MAIL_HOST' => 'yes',
+            'MAIL_PORT' => 'yes',
+            'MAIL_USERNAME' => 'yes',
+            'MAIL_PASSWORD' => 'yes',
+            'MAIL_ENCRYPTION' => 'yes',
+            'MAIL_FROM_ADDRESS' => 'yes',
+            'MAIL_FROM_NAME' => 'yes',
+            //AWS
+            'AWS_ACCESS_KEY_ID' => 'yes',
+            'AWS_SECRET_ACCESS_KEY' => 'yes',
+            'AWS_DEFAULT_REGION' => 'yes',
+            'AWS_BUCKET' => 'yes',
+            'AWS_USE_PATH_STYLE_ENDPOINT' => 'yes',
+            //PUSHER
+            'PUSHER_APP_ID' => 'yes',
+            'PUSHER_APP_KEY' => 'yes',
+            'PUSHER_APP_SECRET' => 'yes',
+            'PUSHER_HOST' => 'yes',
+            'PUSHER_PORT' => 'yes',
+            'PUSHER_SCHEME' => 'yes',
+            'PUSHER_APP_CLUSTER' => 'yes',
+            //VITE
+            'VITE_PUSHER_APP_KEY' => 'yes',
+            'VITE_PUSHER_HOST' => 'yes',
+            'VITE_PUSHER_PORT' => 'yes',
+            'VITE_PUSHER_SCHEME' => 'yes',
+            'VITE_PUSHER_APP_CLUSTER' => 'yes',
         ],
     ],
 ];
