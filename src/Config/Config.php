@@ -28,22 +28,12 @@ class Config implements IteratorAggregate
 
     /**
      * getDestinations
-     * TODO:Config Validatorによるvalidationに差し替える
      * @return string[]
      * @throws InvalidConfigurationException
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     public function getDestinations(): array
     {
-        if (!array_key_exists('destinations', $this->config)) {
-            throw new InvalidConfigurationException("'destinations' is required");
-        }
-        if (!is_array($this->config['destinations'])) {
-            throw new InvalidConfigurationException('destinations must be array');
-        }
-        if (count($this->config['destinations']) === 0) {
-            throw new InvalidConfigurationException('destinations should have string value');
-        }
         return $this->config['destinations'];
     }
 
@@ -68,7 +58,7 @@ class Config implements IteratorAggregate
         foreach ($this->getDestinations() as $destinationName) {
             yield new Destination(
                 $destinationName,
-                $this->getPaths()[$destinationName],
+                $this->path($destinationName),
                 $this->getKeyOfDestination($destinationName),
                 $this->getCipherOfDestination($destinationName)
             );
@@ -102,6 +92,17 @@ class Config implements IteratorAggregate
     public function getDefaultCipher(): string
     {
         return $this->config['default_cipher'] ?? '';
+    }
+
+    /**
+     * TODO:クラス分割
+     * @param string $destinationName
+     * @return string
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
+     */
+    private function path(string $destinationName): string
+    {
+        return $this->getPaths()[$destinationName] ?? '.env.' . $destinationName . '.encrypted';
     }
 
     private function getKeyOfDestination(string $destinationName): string

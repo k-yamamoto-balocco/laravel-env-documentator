@@ -24,8 +24,6 @@ class ServiceProvider extends BaseProvider
         }
 
         $this->publishes($this->itemsToPublish());
-
-        $this->loadTranslationsFrom(__DIR__ . '/../resources/lang', 'env-documentator');
     }
 
     private function commandsToRegister(): array
@@ -37,8 +35,11 @@ class ServiceProvider extends BaseProvider
 
     private function itemsToPublish(): array
     {
-        return [
+        $source = realpath(__DIR__ . '/../resources/env-documentator.php');
+        $dest = base_path('config/env-documentator.php');
 
+        return [
+            $source => $dest,
         ];
     }
 }
