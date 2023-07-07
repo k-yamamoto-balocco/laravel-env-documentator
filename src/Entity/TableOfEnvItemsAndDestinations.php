@@ -36,35 +36,7 @@ class TableOfEnvItemsAndDestinations implements IteratorAggregate
      */
     public function getIterator(): Traversable
     {
-        return new ArrayIterator($this->table()->toArray());
-    }
-
-    /**
-     * table
-     *
-     * @return Collection
-     * @author kenji yamamoto <k.yamamoto@balocco.info>
-     */
-    public function table(): Collection
-    {
-        //全体の結果を初期化
-        $result = [];
-        foreach ($this->destinations as $destination) {
-            //各デプロイ環境ごとの内容初期化
-            $result[$destination] = [];
-            foreach ($this->envItemNames as $itemName) {
-                $result[$destination][$itemName] = $this->collection->get($destination)[$itemName] ?? null;
-            }
-        }
-        return new Collection($result);
-    }
-
-    public function hoge()
-    {
-        $collection = new Collection($this->table());
-        foreach ($this->envItemNames as $itemName) {
-            yield $itemName => $collection->pluck($itemName);
-        }
+        return new ArrayIterator($this->getTable()->toArray());
     }
 
     /**

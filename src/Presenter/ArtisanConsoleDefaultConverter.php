@@ -57,7 +57,7 @@ class ArtisanConsoleDefaultConverter extends AbstractConverter
 
     private function createValuesOfRow(string $itemName): array
     {
-        $values = $this->getTableOfEnvItemsAndDestinations()->table()->pluck($itemName)->toArray();
+        $values = $this->getTableOfEnvItemsAndDestinations()->getTable()->pluck($itemName)->toArray();
         foreach ($values as $key => $value) {
             $values[$key] = $this->getValueFilterHandler()->__invoke($itemName, $value);
         }

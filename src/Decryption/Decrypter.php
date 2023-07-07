@@ -21,6 +21,8 @@ class Decrypter
         }
         $decryptedString = $this->encrypter->decryptString($encryptedString);
         $string = unserialize($decryptedString);
+
+
         return Dotenv::parse($string);
     }
 }

@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace GitBalocco\LaravelEnvDocumentator\Test\Feature;
 
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
-use GitBalocco\LaravelEnvDocumentator\Decryption\Base64KeyParser;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use Illuminate\Support\Facades\Config as ConfigFacade;
@@ -36,6 +35,6 @@ class DecryptionHandlerTest extends FeatureTestCase
         $handler = new Handler($config);
         $actual = $handler->__invoke();
         $this->assertInstanceOf(TableOfEnvItemsAndDestinations::class, $actual);
-        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->table()->toArray());
+        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->getTable()->toArray());
     }
 }
