@@ -71,10 +71,11 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
     }
 
     /**
-     * @covers ::table
+     * @covers ::initTable
+     * @covers ::getTable
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
-    public function test_table()
+    public function test_getTable()
     {
         $testCase = [
             'dest01' => ['key01' => 101],
@@ -102,6 +103,6 @@ class TableOfEnvItemsAndDestinationsTest extends TestCase
                 'key04' => 302
             ],
 
-        ], $object->table()->toArray());
+        ], $object->getTable()->toArray());
     }
 }

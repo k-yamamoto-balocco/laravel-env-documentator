@@ -5,10 +5,10 @@ declare(strict_types=1);
 namespace GitBalocco\LaravelEnvDocumentator\Config;
 
 use Generator;
+use GitBalocco\LaravelEnvDocumentator\Decryption\Base64KeyParser;
 use GitBalocco\LaravelEnvDocumentator\Exceptions\InvalidConfigurationException;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Config as ConfigFacade;
-use Illuminate\Support\Str;
 use IteratorAggregate;
 use Traversable;
 
@@ -20,9 +20,11 @@ use Traversable;
 class Config implements IteratorAggregate
 {
     private array $config;
+    private Base64KeyParser $base64KeyParser;
 
     public function __construct()
     {
+        $this->base64KeyParser = new Base64KeyParser();
         $this->config = ConfigFacade::get('env-documentator');
     }
 
@@ -54,7 +56,6 @@ class Config implements IteratorAggregate
      */
     public function getIterator(): Traversable
     {
-        //ここで統合して返却する感じ？
         foreach ($this->getDestinations() as $destinationName) {
             yield new Destination(
                 $destinationName,
@@ -95,7 +96,6 @@ class Config implements IteratorAggregate
     }
 
     /**
-     * TODO:クラス分割
      * @param string $destinationName
      * @return string
      * @author kenji yamamoto <k.yamamoto@balocco.info>
@@ -120,17 +120,12 @@ class Config implements IteratorAggregate
      * parseKey
      * @param $key
      * @return string
-     * @todo ConfigConvertorに移動する
      * @see \Illuminate\Foundation\Console\EnvironmentDecryptCommand::parseKey
      * @author kenji yamamoto <k.yamamoto@balocco.info>
      */
     private function parseKey($key): string
     {
-        $prefix = 'base64:';
-        if (Str::startsWith($key, $prefix)) {
-            $key = base64_decode(Str::after($key, $prefix));
-        }
-        return $key;
+        return $this->base64KeyParser->__invoke($key);
     }
 
     private function getCipherOfDestination(string $destinationName): string

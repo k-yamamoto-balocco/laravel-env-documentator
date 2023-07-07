@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Config as ConfigFacade;
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Decrypter
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Handler
  * @uses GitBalocco\LaravelEnvDocumentator\ServiceProvider
+ * @uses \GitBalocco\LaravelEnvDocumentator\Decryption\Base64KeyParser
  */
 class DecryptionHandlerTest extends FeatureTestCase
 {
@@ -34,6 +35,6 @@ class DecryptionHandlerTest extends FeatureTestCase
         $handler = new Handler($config);
         $actual = $handler->__invoke();
         $this->assertInstanceOf(TableOfEnvItemsAndDestinations::class, $actual);
-        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->table()->toArray());
+        $this->assertSame(['nice' => ['APP_URL' => 'test']], $actual->getTable()->toArray());
     }
 }

@@ -46,6 +46,11 @@ class EnvDocumentatorCommand extends Command
         $handler = new Handler($config);
         $result = $handler->__invoke();
 
+        $handler->getMessages()->each(function ($item, $key) {
+            $this->error('Destination "' . $key . '" cannot read.');
+            $this->warn($item);
+        });
+
         $this->decidePresenter($config, $result)->__invoke();
 
         return Command::SUCCESS;

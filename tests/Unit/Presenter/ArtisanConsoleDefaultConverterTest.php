@@ -10,6 +10,7 @@ use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use GitBalocco\LaravelEnvDocumentator\Presenter\AbstractConverter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ArtisanConsoleDefaultConverter;
 use GitBalocco\LaravelEnvDocumentator\Presenter\ValueFilter\ValueFilterHandlerInterface;
+use Illuminate\Support\Collection;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -41,6 +42,31 @@ class ArtisanConsoleDefaultConverterTest extends TestCase
 
         ];
     }
+
+    static public function rowsDataProvider(): array
+    {
+        return [
+            "testcase101" => [
+                //結果件数
+                ['APP_NAME', 'APP_URL'],
+                ['meta101'],
+                [
+                    ['APP_NAME', 'metaValue', 'envItemValue'],
+                    ['APP_URL', 'metaValue', 'envItemValue'],
+                ]
+            ],
+            "testcase102" => [
+                //結果件数
+                ['LOG_CHANNEL'],
+                ['meta102-01', 'meta102-02'],
+                [
+                    ['LOG_CHANNEL', 'metaValue', 'metaValue', 'envItemValue'],
+                ]
+            ],
+
+        ];
+    }
+
     /**
      * @covers ::__construct
      * @author kenji yamamoto <k.yamamoto@balocco.info>
@@ -97,5 +123,41 @@ class ArtisanConsoleDefaultConverterTest extends TestCase
             $expectation,
             $object->convertToHeader()
         );
+    }
+
+    /**
+     * test_convertToRows
+     *
+     * @param array $envItemNames
+     * @param array $metadata
+     * @param array $expectation
+     * @author kenji yamamoto <k.yamamoto@balocco.info>
+     * @dataProvider rowsDataProvider
+     * @covers ::convertToRows
+     * @covers ::createMetadataValuesOfRow
+     * @covers ::createValuesOfRow
+     */
+    public function test_convertToRows(array $envItemNames, array $metadata, array $expectation)
+    {
+        $mockTableOfEnvItemsAndDestinations = \Mockery::mock(TableOfEnvItemsAndDestinations::class);
+        $mockTableOfEnvItemsAndDestinations->allows('getEnvItemNames')->andReturn($envItemNames);
+        $mockTableOfEnvItemsAndDestinations->allows('getTable')->andReturn(new Collection(['']));
+
+        $mockConfig = \Mockery::mock(Config::class);
+        $mockConfig->allows('getMetadataValue')->andReturn('metaValue');
+        $mockValueFilterHandlerInterface = \Mockery::mock(ValueFilterHandlerInterface::class);
+        $mockValueFilterHandlerInterface->allows('__invoke')->andReturn('envItemValue');
+
+        $mockMetadataOption = \Mockery::mock(MetadataOption::class);
+        $mockMetadataOption->allows('visibleMetadataColumns')->andReturn($metadata);
+
+        $object = new ArtisanConsoleDefaultConverter(
+            $mockTableOfEnvItemsAndDestinations,
+            $mockConfig,
+            $mockValueFilterHandlerInterface,
+            $mockMetadataOption
+        );
+
+        $this->assertSame($expectation, $object->convertToRows());
     }
 }
