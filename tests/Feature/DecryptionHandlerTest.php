@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace GitBalocco\LaravelEnvDocumentator\Test\Feature;
 
 use GitBalocco\LaravelEnvDocumentator\Config\Config;
+use GitBalocco\LaravelEnvDocumentator\Decryption\Base64KeyParser;
 use GitBalocco\LaravelEnvDocumentator\Decryption\Handler;
 use GitBalocco\LaravelEnvDocumentator\Entity\TableOfEnvItemsAndDestinations;
 use Illuminate\Support\Facades\Config as ConfigFacade;
@@ -16,6 +17,7 @@ use Illuminate\Support\Facades\Config as ConfigFacade;
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Decrypter
  * @uses GitBalocco\LaravelEnvDocumentator\Decryption\Handler
  * @uses GitBalocco\LaravelEnvDocumentator\ServiceProvider
+ * @uses \GitBalocco\LaravelEnvDocumentator\Decryption\Base64KeyParser
  */
 class DecryptionHandlerTest extends FeatureTestCase
 {

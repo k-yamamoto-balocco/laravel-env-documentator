@@ -59,7 +59,7 @@ return [
      * @see \GitBalocco\LaravelEnvDocumentator\Config\Validator\Items\CipherValidator::definition()
      */
     'ciphers' => [
-        'staging' => 'aes-256-cbc',
+        //'staging' => 'aes-256-cbc',
     ],
 
     //結果表示時に、値に対して適用されるフィルタの設定。
